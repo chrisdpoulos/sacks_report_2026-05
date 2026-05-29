@@ -115,6 +115,7 @@ def main():
         df_periods = df_periods[df_periods["periods"] == select_period]
         df_periods = df_periods.sort_values(by="amount", ascending=False)
     st.markdown(f"""<h3>Table 1,2,3. Donations by Committee and Period (sorted by amount).</h3>""", unsafe_allow_html=True,help="Table 1 corresponds to the period <2014, Table 2 corresponds to the period 2014-2020, and Table 3 corresponds to the period >2020.")
+    df_periods = df_periods[["received_date", "committee_name", "amount"]]
     st.dataframe(df_periods.style.format({
         "amount": "${:,.2f}"
     }), hide_index=True)
