@@ -107,7 +107,9 @@ def main():
 
     st.markdown(f"""
 <h2>Composition of Donations</h2>
-<p>In conjunction with the analysis of total donations, Sacks' donations to key strategic local and state elections are increasing by frequency and amount. In the most recent period, 2020 through present, nearly half of Sacks' ${total_donations_2020:,.1f} million in post 2020 donations were made to Get Stuff Done PAC (business friendly PAC amed at elected "pragmatic" "Obama Democrats" to Chicago's City Council in the 2023 election (<a href="https://www.chicagotribune.com/2024/07/24/new-nonprofit-and-pac-aligned-with-business-community-launching-in-time-for-school-board-elections/">Quig, 2024</a>)) (21% of post 2020 donations), Citizen for Giannoulias (a potential Mayoral candidate in 2027) received 16% of post 2020 donations, and 10% when to the Common Ground Collective, which ran ads to defeat the Corporate Head Tax and lower support for CTU, Mayor Brandon Johnson, and a number of progressive and socialist candidates.),
+<p>In conjunction with the analysis of total donations, Sacks' donations to key strategic local and state elections are increasing by frequency and amount. 
+<br>
+In the most recent period, 2020 through present, nearly half of Sacks' ${total_donations_2020:,.1f} million in post 2020 donations were made to Get Stuff Done PAC (business friendly PAC amed at elected "pragmatic" "Obama Democrats" to Chicago's City Council in the 2023 election (<a href="https://www.chicagotribune.com/2024/07/24/new-nonprofit-and-pac-aligned-with-business-community-launching-in-time-for-school-board-elections/">Quig, 2024</a>)) (21% of post 2020 donations), Citizen for Giannoulias (a potential Mayoral candidate in 2027) received 16% of post 2020 donations, and 10% went to the Common Ground Collective, which ran ads to defeat the Corporate Head Tax and lower support for CTU, Mayor Brandon Johnson, and a number of progressive and socialist candidates.
 </p>
 """, unsafe_allow_html=True)
     select_period = st.selectbox("Select a period to filter by:", options=df["periods"].unique())
