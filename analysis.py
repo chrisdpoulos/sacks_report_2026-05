@@ -59,7 +59,7 @@ def main():
 
     # create column for periods: <2014, 2014-2020, >2020
 
-    df['periods'] = ["<2014" if x < 2014 else "2014-2020" if x < 2021 else ">2020" for x in df['year']]
+    df['periods'] = ["Before 2014" if x < 2014 else "2014-2020" if x < 2021 else "2020-2026" for x in df['year']]
 
     df_periods = df.copy()
 
@@ -100,7 +100,7 @@ def main():
     st.markdown(f"""<h3>Figure 2. Frequency of Donations Over Time</h3>""", unsafe_allow_html=True)
     st.plotly_chart(fig2)
     #Sum amount if period is >2020 
-    df_periods_2020 = df_periods[df_periods["periods"] == ">2020"]
+    df_periods_2020 = df_periods[df_periods["periods"] == "2020-2026"]
     total_donations_2020 = df_periods_2020["amount"].sum()
     # Make this a more readable number by dividing by 1 million and rounding to 1 decimal places
     total_donations_2020 = round(total_donations_2020 / 1000000, 1)
@@ -116,16 +116,16 @@ In the most recent period, 2020 through present, nearly half of Sacks' ${total_d
     if select_period:
         df_periods = df_periods[df_periods["periods"] == select_period]
         df_periods = df_periods.sort_values(by="amount", ascending=False)
-    st.markdown(f"""<h3>Table 1,2,3. Donations by Committee and Period (sorted by amount).</h3>""", unsafe_allow_html=True,help="Table 1 corresponds to the period <2014, Table 2 corresponds to the period 2014-2020, and Table 3 corresponds to the period >2020.")
+    st.markdown(f"""<h3>Table 1,2,3. Donations by Committee and Period (sorted by amount).</h3>""", unsafe_allow_html=True,help="Table 1 corresponds to the period before 2014, Table 2 corresponds to the period 2014-2020, and Table 3 corresponds to the period since 2020.")
     df_periods = df_periods[["received_date", "committee_name", "amount"]]
     st.dataframe(df_periods.style.format({
         "amount": "${:,.2f}"
     }), hide_index=True)
-    st.markdown(f"""<h3>Figure 3,4,5. Donations by Committee and Period</h3>""", unsafe_allow_html=True,help="Figure 3 corresponds to the period <2014, Figure 4 corresponds to the period 2014-2020, and Figure 5 corresponds to the period >2020.")
+    st.markdown(f"""<h3>Figure 3,4,5. Donations by Committee and Period</h3>""", unsafe_allow_html=True,help="Figure 3 corresponds to the period before 2014, Figure 4 corresponds to the period 2014-2020, and Figure 5 corresponds to the period since 2020.")
     fig345 = px.bar(df_periods, x='received_date', y='amount',color='committee_name')
     fig345.update_layout(showlegend=False)
     st.plotly_chart(fig345)
-    st.markdown(f"""<h3>Figure 6,7,8. Distribution of Donations by Committee and Period</h3>""", unsafe_allow_html=True,help="Figure 6 corresponds to the period <2014, Figure 7 corresponds to the period 2014-2020, and Figure 8 corresponds to the period >2020.")
+    st.markdown(f"""<h3>Figure 6,7,8. Distribution of Donations by Committee and Period</h3>""", unsafe_allow_html=True,help="Figure 6 corresponds to the period before 2014, Figure 7 corresponds to the period 2014-2020, and Figure 8 corresponds to the period since 2020.")
     df_agg_periods = df_periods.groupby('committee_name')['amount'].sum().reset_index()
     fig678 = px.pie(df_agg_periods, values='amount', names='committee_name')
     fig678.update_layout(showlegend=False)
