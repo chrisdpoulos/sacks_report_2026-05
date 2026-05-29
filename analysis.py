@@ -115,7 +115,9 @@ def main():
         df_periods = df_periods[df_periods["periods"] == select_period]
         df_periods = df_periods.sort_values(by="amount", ascending=False)
     st.markdown(f"""<h3>Table 1,2,3. Donations by Committee and Period (sorted by amount).</h3>""", unsafe_allow_html=True,help="Table 1 corresponds to the period <2014, Table 2 corresponds to the period 2014-2020, and Table 3 corresponds to the period >2020.")
-    st.dataframe(df_periods)
+    st.dataframe(df_periods.style.format({
+        "amount": "${:,.2f}"
+    }), hide_index=True)
     st.markdown(f"""<h3>Figure 3,4,5. Donations by Committee and Period</h3>""", unsafe_allow_html=True,help="Figure 3 corresponds to the period <2014, Figure 4 corresponds to the period 2014-2020, and Figure 5 corresponds to the period >2020.")
     fig345 = px.bar(df_periods, x='received_date', y='amount',color='committee_name')
     fig345.update_layout(showlegend=False)
@@ -131,6 +133,6 @@ def main():
     st.dataframe(df_formatted.style.format({
         "amount": "${:,.2f}"
     }), hide_index=True)
-    
+
 if __name__ == "__main__":
     main()
