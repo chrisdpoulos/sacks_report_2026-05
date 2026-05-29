@@ -118,10 +118,12 @@ def main():
     st.dataframe(df_periods)
     st.markdown(f"""<h3>Figure 3,4,5. Donations by Committee and Period</h3>""", unsafe_allow_html=True,help="Figure 3 corresponds to the period <2014, Figure 4 corresponds to the period 2014-2020, and Figure 5 corresponds to the period >2020.")
     fig345 = px.bar(df_periods, x='received_date', y='amount',color='committee_name')
+    fig345.update_layout(showlegend=False)
     st.plotly_chart(fig345)
     st.markdown(f"""<h3>Figure 6,7,8. Distribution of Donations by Committee and Period</h3>""", unsafe_allow_html=True,help="Figure 6 corresponds to the period <2014, Figure 7 corresponds to the period 2014-2020, and Figure 8 corresponds to the period >2020.")
     df_agg_periods = df_periods.groupby('committee_name')['amount'].sum().reset_index()
     fig678 = px.pie(df_agg_periods, values='amount', names='committee_name')
+    fig678.update_layout(showlegend=False)
     st.plotly_chart(fig678)
     st.markdown(f"""<h3>All Donations, 1994-2026</h3>""", unsafe_allow_html=True)
     
