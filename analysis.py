@@ -126,8 +126,11 @@ def main():
     fig678.update_layout(showlegend=False)
     st.plotly_chart(fig678)
     st.markdown(f"""<h3>All Donations, 1994-2026</h3>""", unsafe_allow_html=True)
+    df_formatted = df.copy()
+    df_formatted = df_formatted[["received_date", "committee_name", "amount"]]
+    st.dataframe(df_formatted.style.format({
+        "amount": "${:,.2f}"
+    }), hide_index=True)
     
-    st.dataframe(df)
-
 if __name__ == "__main__":
     main()
